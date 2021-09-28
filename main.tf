@@ -157,7 +157,7 @@ resource "null_resource" "configure-cat-app" {
 
   provisioner "file" {
     source      = "files/"
-    destination = "/home/ubuntu/"
+    destination = "/home/hashicorp/"
 
     connection {
       type        = "ssh"
@@ -172,8 +172,8 @@ resource "null_resource" "configure-cat-app" {
       "sudo apt -q -y update",
       "sudo apt -q -y install ansible",
       "echo Done!",
-      "find /home/ubuntu/",
-      "sudo ansible-playbook -c local -i \"localhost,\" /home/ubuntu/playbook.yml",
+      "find /home/${var.admin_username}/",
+      "sudo ansible-playbook -c local -i \"localhost,\" /home/${var.admin_username}/playbook.yml",
     ]
     
     #inline = [
