@@ -157,7 +157,7 @@ resource "null_resource" "configure-cat-app" {
 
   provisioner "file" {
     source      = "files/"
-    destination = "/home/hashicorp/"
+    destination = "/home/ubuntu/"
 
     connection {
       type        = "ssh"
