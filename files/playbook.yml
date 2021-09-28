@@ -21,3 +21,7 @@
       template:
         src: files/index.j2
         dest: /var/www/html/index.html
+        
+    handlers:
+    - name: Restart apache2
+      service: name=apache2 state=restarted
