@@ -162,25 +162,32 @@ resource "null_resource" "configure-cat-app" {
     connection {
       type        = "ssh"
       user        = "ubuntu"
-      private_key = tls_private_key.hashicat.private_key_pem
-      host        = aws_eip.hashicat.public_ip
+      private_key = "${tls_private_key.hashicat.private_key_pem}
+      host        = "${aws_eip.hashicat.public_ip}
     }
   }
 
   provisioner "remote-exec" {
+    #inline = [
+      #"sudo apt -q -y update",
+      #"sudo apt -q -y install ansible",
+      #"sudo apt install python3 -y",
+      #"find /home/${var.admin_username}/",
+      #"sudo ansible-playbook -c local -i \"localhost,\" /home/${var.admin_username}/playbook.yml",
+    #]
     inline = [
-      "sudo apt -q -y update",
-      "sudo apt -q -y install ansible",
-      "sudo apt install python3 -y",
-      "find /home/${var.admin_username}/",
-      "sudo ansible-playbook -c local -i \"localhost,\" /home/${var.admin_username}/playbook.yml",
+      "sudo apt -y install apache2",
+      "sudo systemctl start apache2",
+      "sudo chown -R ubuntu:ubuntu /var/www/html",
+      "chmod +x *.sh",
+      "PLACEHOLDER=${var.placeholder} WIDTH=${var.width} HEIGHT=${var.height} PREFIX=${var.prefix} ./deploy_app.sh",
     ]
 
     connection {
       type        = "ssh"
       user        = "ubuntu"
-      private_key = tls_private_key.hashicat.private_key_pem
-      host        = aws_eip.hashicat.public_ip
+      private_key = "${tls_private_key.hashicat.private_key_pem}"
+      host        = "${aws_eip.hashicat.public_ip}"
     }
   }
 }
