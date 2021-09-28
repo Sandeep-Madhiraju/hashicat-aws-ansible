@@ -157,7 +157,7 @@ resource "null_resource" "configure-cat-app" {
 
   provisioner "file" {
     source      = "files/"
-    destination = "/home/ubuntu/"
+    destination = "/home/${var.admin_username}/"
 
     connection {
       type        = "ssh"
