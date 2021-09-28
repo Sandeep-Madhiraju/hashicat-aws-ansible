@@ -148,6 +148,7 @@ resource "aws_instance" "hashicat" {
 # Set up some environment variables for our script.
 # Add execute permissions to our scripts.
 # Run the deploy_app.sh script.
+
 resource "null_resource" "configure-cat-app" {
   depends_on = [aws_eip_association.hashicat]
 
@@ -176,14 +177,6 @@ resource "null_resource" "configure-cat-app" {
       "sudo ansible-playbook -c local -i \"localhost,\" /home/${var.admin_username}/playbook.yml",
     ]
     
-    #inline = [
-     # "sudo apt -y install apache2",
-      #"sudo systemctl start apache2",
-      #"sudo chown -R ubuntu:ubuntu /var/www/html",
-      #"chmod +x *.sh",
-      #"PLACEHOLDER=${var.placeholder} WIDTH=${var.width} HEIGHT=${var.height} PREFIX=${var.prefix} ./deploy_app.sh",
-    #]
-
     connection {
       type        = "ssh"
       user        = "ubuntu"
